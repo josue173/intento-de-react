@@ -95,8 +95,8 @@ task-manager-app/
 
 1. **Clonar el repositorio**
    ```bash
-   git clone <url-del-repositorio>
-   cd task-manager-app
+   git clone https://github.com/josue173/intento-de-react.git
+   cd intento-de-react
    ```
 
 2. **Instalar dependencias**
@@ -279,6 +279,5 @@ Desarrollado con ❤️ usando:
 
 🐛 ¿Encontraste un bug? [Crea un issue](../../issues/new)
 
-💡 ¿Tienes una idea? [Compártela](../../discussions/new)#   i n t e n t o - d e - r e a c t  
- #   i n t e n t o - d e - r e a c t  
+💡 ¿Tienes una idea? [Compártela](../../discussions/new)
  
