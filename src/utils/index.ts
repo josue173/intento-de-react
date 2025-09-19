@@ -1,4 +1,4 @@
-import { Task, TaskFilters, TaskStats, TaskPriority, TaskCategory, UserPreferences } from '../types';
+import { Task, TaskFilters, TaskStats, TaskPriority, TaskCategory, UserPreferences, CreateTaskData } from '../types';
 
 // Generar un ID único
 export const generateId = (): string => {
@@ -258,7 +258,7 @@ export const getCategoryColor = (category: TaskCategory): string => {
 };
 
 // Validar datos de tarea
-export const validateTaskData = (data: Partial<Task>): string[] => {
+export const validateTaskData = (data: Partial<Task> | Partial<CreateTaskData>): string[] => {
   const errors: string[] = [];
   
   if (!data.title?.trim()) {

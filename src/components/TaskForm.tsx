@@ -49,6 +49,20 @@ export const TaskForm: React.FC<TaskFormProps> = ({
   const [errors, setErrors] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Prevenir scroll del body cuando el modal está abierto
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    // Cleanup function para restaurar el scroll cuando el componente se desmonte
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
+
   // Llenar el formulario cuando se edita una tarea
   useEffect(() => {
     if (task) {
@@ -117,7 +131,9 @@ export const TaskForm: React.FC<TaskFormProps> = ({
   const formatDateForInput = (date: Date | undefined): string => {
     if (!date) return '';
     const d = new Date(date);
-    d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+    // Ajustar para la zona horaria local
+    const offset = d.getTimezoneOffset();
+    d.setMinutes(d.getMinutes() - offset);
     return d.toISOString().slice(0, 16);
   };
 
@@ -130,6 +146,7 @@ export const TaskForm: React.FC<TaskFormProps> = ({
       const validationErrors = validateTaskData(formData);
       if (validationErrors.length > 0) {
         setErrors(validationErrors);
+        setIsSubmitting(false);
         return;
       }
       
@@ -160,8 +177,8 @@ export const TaskForm: React.FC<TaskFormProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-modal p-4">
-      <div className="bg-surface rounded-xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-slide-up">
+    <div className="modal-backdrop">
+      <div className="modal-content animate-slide-up">
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-border">
           <h2 className="text-xl font-bold">

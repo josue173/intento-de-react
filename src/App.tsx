@@ -10,7 +10,7 @@ import { Task, CreateTaskData, UpdateTaskData } from './types';
 import './styles/index.css';
 
 // Componente de estado vacío
-const EmptyState: React.FC = () => (
+const EmptyState: React.FC<{ onCreateTask: () => void }> = ({ onCreateTask }) => (
   <div className="flex flex-col items-center justify-center py-12 px-4 text-center">
     <div className="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center mb-6">
       <Plus size={32} className="text-gray-400" />
@@ -21,7 +21,10 @@ const EmptyState: React.FC = () => (
     <p className="text-gray-500 mb-6 max-w-sm">
       Crea tu primera tarea para empezar a organizar tu trabajo y ser más productivo.
     </p>
-    <button className="btn btn-primary">
+    <button 
+      onClick={onCreateTask}
+      className="btn btn-primary"
+    >
       <Plus size={16} />
       Crear primera tarea
     </button>
@@ -186,7 +189,7 @@ function App() {
       {/* Contenido principal */}
       <main className="container py-6">
         {filteredTasks.length === 0 ? (
-          <EmptyState />
+          <EmptyState onCreateTask={handleNewTask} />
         ) : (
           <TaskList
             tasks={filteredTasks}
